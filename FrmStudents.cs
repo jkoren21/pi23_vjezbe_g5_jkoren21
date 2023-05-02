@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Evaluation_Manager.Models;
+using Evaluation_Manager.Repositories;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,5 +18,20 @@ namespace Evaluation_Manager
         {
             InitializeComponent();
         }
+
+        private void FrmStudents_Load(object sender, EventArgs e) {
+            ShowStudents();
+        }
+
+        private void ShowStudents() {
+            List<Student> students = StudentRepository.GetStudent();
+            dgvStudents.DataSource = students;
+
+            dgvStudents.Columns["Id"].DisplayIndex = 0;
+            dgvStudents.Columns["Ime"].DisplayIndex = 1;
+            dgvStudents.Columns["Prezime"].DisplayIndex = 2;
+            dgvStudents.Columns["Ocjena"].DisplayIndex = 3;
+        }
+        
     }
 }
