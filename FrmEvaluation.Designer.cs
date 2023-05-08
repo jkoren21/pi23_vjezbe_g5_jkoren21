@@ -118,6 +118,7 @@
             this.btnCancel.TabIndex = 8;
             this.btnCancel.Text = "Odustani";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // label4
             // 
@@ -136,6 +137,7 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(345, 21);
             this.comboBox1.TabIndex = 10;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label5
             // 
@@ -179,6 +181,7 @@
             this.txtActivityDescription.ReadOnly = true;
             this.txtActivityDescription.Size = new System.Drawing.Size(677, 235);
             this.txtActivityDescription.TabIndex = 15;
+            this.txtActivityDescription.TextChanged += new System.EventHandler(this.txtActivityDescription_TextChanged);
             // 
             // FrmEvaluation
             // 

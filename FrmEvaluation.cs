@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Evaluation_Manager.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -28,6 +29,24 @@ namespace Evaluation_Manager {
 
         private void FrmEvaluation_Load(object sender, EventArgs e) {
 
+        }
+
+        private void btnEvaluiraj_Click(object sender, EventArgs e) {
+
+        }
+
+        private void txtActivityDescription_TextChanged(object sender, EventArgs e) {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e) {
+            var currentActivity = cboActivities.SelectedItem as Activity;
+            txtActivityDescription.Text = currentActivity.Description;
+            txtMinForGrade.Text = currentActivity.Min
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e) {
+            Close();
         }
     }
 }
