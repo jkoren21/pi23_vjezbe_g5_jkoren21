@@ -42,7 +42,7 @@ namespace Evaluation_Manager {
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e) {
             var currentActivity = cboActivities.SelectedItem as Activity;
             txtActivityDescription.Text = currentActivity.Description;
-            txtMinForGrade.Text = currentActivity.MinPointsForGrade + "/" currentActivity.MaxPoints;
+            txtMinForGrade.Text = currentActivity.MinPointsForGrade + "/" + currentActivity.MaxPoints;
 
         }
 
