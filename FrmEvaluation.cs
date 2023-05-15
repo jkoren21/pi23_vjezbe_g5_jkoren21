@@ -11,8 +11,15 @@ using System.Windows.Forms;
 
 namespace Evaluation_Manager {
     public partial class FrmEvaluation : Form {
+        private Student selectedStudent;
+        private object cboActivities;
+
         public FrmEvaluation() {
             InitializeComponent();
+        }
+
+        public FrmEvaluation(Student selectedStudent) {
+            this.selectedStudent = selectedStudent;
         }
 
         private void label1_Click(object sender, EventArgs e) {
@@ -44,7 +51,10 @@ namespace Evaluation_Manager {
             txtActivityDescription.Text = currentActivity.Description;
             txtMinForGrade.Text = currentActivity.MinPointsForGrade + "/" + currentActivity.MaxPoints;
 
+            numPoint = MinimumSize = 0;
+            numPoint = currentActivity.MaxPoints;
         }
+
 
         private void btnCancel_Click(object sender, EventArgs e) {
             Close();
