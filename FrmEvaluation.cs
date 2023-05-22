@@ -1,4 +1,5 @@
 ﻿using Evaluation_Manager.Models;
+using Evaluation_Manager.Repositories;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,54 +10,64 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Evaluation_Manager {
-    public partial class FrmEvaluation : Form {
-        private Student selectedStudent;
-        private object cboActivities;
+namespace Evaluation_Manager
+{
+    public partial class FrmEvaluation : Form
+    {
+        private Student student;
 
-        public FrmEvaluation() {
+        public Student SelectedStudent {  get => student; set => student = value; }
+        public FrmEvaluation(Student selectedStudent)
+        {
             InitializeComponent();
+            student = selectedStudent;
         }
 
-        public FrmEvaluation(Student selectedStudent) {
-            this.selectedStudent = selectedStudent;
+        private void FrmEvaluation_Load(object sender, EventArgs e)
+        {
+            SetFormText();
+            var activities = ActivityRepository.GetActivities();
+            cboActivities.DataSource = activities;
         }
 
-        private void label1_Click(object sender, EventArgs e) {
-
+        private void SetFormText()
+        {
+            Text = student.FirstName + " " + student.LastName;
         }
 
-        private void label3_Click(object sender, EventArgs e) {
-
-        }
-
-        private void txtEvaluationDate_TextChanged(object sender, EventArgs e) {
-
-        }
-
-        private void FrmEvaluation_Load(object sender, EventArgs e) {
-
-        }
-
-        private void btnEvaluiraj_Click(object sender, EventArgs e) {
-
-        }
-
-        private void txtActivityDescription_TextChanged(object sender, EventArgs e) {
-
-        }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e) {
+        private void cboActivities_SelectedIndexChanged(object sender, EventArgs e)
+        {
             var currentActivity = cboActivities.SelectedItem as Activity;
             txtActivityDescription.Text = currentActivity.Description;
             txtMinForGrade.Text = currentActivity.MinPointsForGrade + "/" + currentActivity.MaxPoints;
+            txtMinForSignature.Text = currentActivity.MinPointsForSignature + "/" + currentActivity.MaxPoints;
+            numPoints.Minimum = 0;
+            numPoints.Maximum = currentActivity.MaxPoints;
 
-            numPoint = MinimumSize = 0;
-            numPoint = currentActivity.MaxPoints;
+            var evaluation = EvaluationRepository.GetEvaluation(SelectedStudent, currentActivity);
+            if(evaluation != null) {
+                txtTeacher.Text = evaluation.Evaluator.ToString();
+                txtEvaluationDate.Text = evaluation.EvaluationDate.ToString();
+                numPoints.Value = evaluation.Points;
+            }
+            else {
+                txtTeacher.Text = FrmLogin.LoggedTeacher.ToString();
+                txtEvaluationDate.Text = "-";
+                numPoints.Value = 0;
+            }
         }
 
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
 
-        private void btnCancel_Click(object sender, EventArgs e) {
+        private void btnSave_Click(object sender, EventArgs e) {
+            var activity = cboActivities.SelectedItem as Activity;
+            var teacher = FrmLogin.LoggedTeacher;
+            int points = (int)numPoints.Value;
+
+            teacher.PerformEvaluation(SelectedStudent, activity, points);
             Close();
         }
     }

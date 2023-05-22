@@ -14,10 +14,7 @@ namespace Evaluation_Manager
 {
     public partial class FrmLogin : Form
     {
-        //string username = "nastavnik";
-        //string password = "test";
-
-        public static Teacher LoggedTeacher { get; set; }
+       public static Teacher LoggedTeacher {  get; set; }
 
         public FrmLogin()
         {
@@ -49,10 +46,6 @@ namespace Evaluation_Manager
                     MessageBox.Show("Krivi podaci!", "Problem", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-        }
-
-        private void FrmLogin_Load(object sender, EventArgs e) {
-
         }
     }
 }
