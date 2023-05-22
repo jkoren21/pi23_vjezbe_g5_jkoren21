@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace Evaluation_Manager.Models {
     public class Student : Person {
         public int Grade { get; set; }
+        public string HasSignature { get; internal set; }
     }
 
     public List<Evaluation> GetEvaluations() {
@@ -25,7 +26,7 @@ namespace Evaluation_Manager.Models {
         bool hasSignature = true;
         if(IsEvaluationComplete() == true) {
             foreach(var evaluation in GetEvaluations()) {
-                if(evaluation.IsSufficient)
+                if (evaluation.IsSufficient) ;
             }
         }
     }
